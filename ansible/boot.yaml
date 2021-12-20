@@ -1,0 +1,5 @@
+- name: Start Systems
+  hosts: homelab
+  gather_facts: no
+  roles:
+    - WakeOnLan

@@ -1,0 +1,8 @@
+- name: Send magic Wake-On-Lan packet to turn on individual systems
+  community.general.wakeonlan:
+    mac: "{{ hostvars[inventory_hostname]['mac'] }}"
+  delegate_to: localhost
+
+- name: Wait for system to become reachable
+  wait_for_connection:
+    timeout: 300
