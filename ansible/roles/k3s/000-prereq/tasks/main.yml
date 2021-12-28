@@ -1,0 +1,51 @@
+---
+- name: Download k3s binary x64
+  get_url:
+    url: https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/k3s
+    checksum: sha256:https://github.com/k3s-io/k3s/releases/download/{{ k3s_version }}/sha256sum-amd64.txt
+    dest: "{{ role_path }}/files/bin/k3s"
+    owner: root
+    group: root
+    mode: 0755
+  delegate_to: localhost
+  run_once: true
+  register: k3s_binary
+
+- name: Copy k3s binary x64 to nodes
+  copy:
+    src: bin/k3s
+    dest: /usr/local/bin/k3s
+    owner: root
+    group: root
+    mode: 0755
+    
+- name: Disable Ubuntu auto-update
+  copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      APT::Periodic::Update-Package-Lists "0";
+      APT::Periodic::Unattended-Upgrade "0";
+
+- name: Enable IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Enable IPv6 forwarding
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    state: present
+    reload: yes
+  when: ansible_all_ipv6_addresses
+
+- name: Open port for k3s
+  ufw: rule=allow port={{item}} proto=tcp
+  loop:
+    - "6443"
+    - "443"

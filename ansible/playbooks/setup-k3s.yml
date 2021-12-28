@@ -1,0 +1,16 @@
+---
+- name: Prepare Cluster
+  hosts: k3s_homelab
+  become: yes
+  roles:
+    - role: ../roles/k3s/000-prereq
+
+- hosts: master
+  become: yes
+  roles:
+    - role: ../roles/k3s/010-master
+
+- hosts: node
+  become: yes
+  roles:
+    - role: ../roles/k3s/020-node
