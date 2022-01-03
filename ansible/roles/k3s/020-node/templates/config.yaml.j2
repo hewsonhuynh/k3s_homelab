@@ -1,0 +1,3 @@
+server: https://{{ k3s_master_ip }}:6443
+token: {{ hostvars[groups['master'][0]]['token'] }}
+disable: traefik

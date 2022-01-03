@@ -1,12 +1,11 @@
-- name: Copy K3s service file
-  register: k3s_service
+- name: Copy config file
   template:
-    src: "k3s.service.j2"
-    dest: "{{ k3s_systemd_dir }}/k3s.service"
+    src: "config.yaml.j2"
+    dest: "{{ k3s_config_dir }}/config.yaml"
     owner: root
     group: root
     mode: 0644
-
+    
 - name: Enable and check K3s service
   systemd:
     name: k3s
@@ -27,8 +26,8 @@
   file:
     path: "{{ k3s_server_location_node }}"
     mode: "g+rx,o+rx"
-
-- name: Read node-token from master
+    
+- name: Read node-token from mastes
   slurp:
     path: "{{ k3s_server_location_node }}"
   register: node_token
@@ -41,14 +40,7 @@
   file:
     path: "{{ k3s_server_location_node }}"
     mode: "{{ p.stat.mode }}"
-
-- name: Create directory .kube
-  file:
-    path: ~{{ ansible_user }}/.kube
-    state: directory
-    owner: "{{ ansible_user }}"
-    mode: "u=rwx,g=rx,o="
-
+    
 - name: fetch config file to user home directory
   fetch:
     src: /etc/rancher/k3s/k3s.yaml

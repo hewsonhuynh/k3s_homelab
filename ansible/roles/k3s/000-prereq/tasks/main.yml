@@ -18,7 +18,16 @@
     owner: root
     group: root
     mode: 0755
-    
+
+- name: Copy K3s service file
+  register: k3s_service
+  template:
+    src: "k3s.service.j2"
+    dest: "{{ k3s_systemd_dir }}/k3s.service"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Disable Ubuntu auto-update
   copy:
     dest: /etc/apt/apt.conf.d/20auto-upgrades

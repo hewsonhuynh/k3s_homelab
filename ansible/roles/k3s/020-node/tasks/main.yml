@@ -1,11 +1,11 @@
----
-- name: Copy K3s service file
+---    
+- name: Copy config file
   template:
-    src: "k3s.service.j2"
-    dest: "{{ k3s_systemd_dir }}/k3s-node.service"
+    src: "config.yaml.j2"
+    dest: "{{ k3s_config_dir }}/config.yaml"
     owner: root
     group: root
-    mode: 0755
+    mode: 0644
 
 - name: Enable and check K3s service
   systemd:
