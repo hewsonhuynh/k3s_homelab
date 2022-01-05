@@ -1,0 +1,8 @@
+version: '3'
+
+tasks:
+  k3s-install:
+    desc: Setup k3s
+    dir: ansible
+    cmds:
+      - "ansible-playbook -i inventory/k3s_homelab/hosts.ini playbooks/setup-k3s.yml"
