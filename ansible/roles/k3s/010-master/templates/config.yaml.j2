@@ -1,2 +1,4 @@
 data-dir: {{ k3s_server_location }}
-disable: traefik
+disable: 
+ - traefik
+ - servicelb
