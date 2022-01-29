@@ -7,6 +7,8 @@ repositories:
   url: https://kubernetes.github.io/ingress-nginx
 - name: external-dns
   url: https://kubernetes-sigs.github.io/external-dns/
+- name: cert-manager
+  url: https://charts.jetstack.io
 
 helmDefaults:
   verify: false
@@ -38,6 +40,13 @@ releases:
     version: 4.0.13
     values:
     - values/ingress-nginx.yaml
+
+  - name: cert-manager
+    namespace: cert-manager
+    chart: cert-manager/cert-manager 
+    version: 1.7.0
+    values:
+    - values/cert-manager.yaml
 
   # - name: external-dns
   #   namespace: external-dns

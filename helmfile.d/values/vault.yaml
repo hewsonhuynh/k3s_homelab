@@ -1,0 +1,13 @@
+server:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    pathType: Prefix
+    activeService: true
+    hosts:
+      - host: vault.hewson.io
+
+dev:
+  enabled: true
+
