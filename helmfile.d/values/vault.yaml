@@ -1,5 +1,6 @@
 server:
   enabled: true
+
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -7,7 +8,11 @@ server:
     activeService: true
     hosts:
       - host: vault.hewson.io
-
+    tls:
+      - secretName: vault.hewson-tls
+        hosts:
+          - vault.hewson.io
+          
 dev:
   enabled: true
 
