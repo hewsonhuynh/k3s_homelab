@@ -3,15 +3,19 @@ server:
 
   ingress:
     enabled: true
+    annotations:
+      |
+      cert-manager.io/issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/target: cname.hewson.io
     ingressClassName: nginx
     pathType: Prefix
     activeService: true
     hosts:
-      - host: vault.hewson.io
+      - host: vault3.hewson.io
     tls:
-      - secretName: vault.hewson-tls
+      - secretName: vault3.hewson-tls
         hosts:
-          - vault.hewson.io
+          - vault3.hewson.io
           
 dev:
   enabled: true
