@@ -6,3 +6,15 @@ tasks:
     dir: ansible
     cmds:
       - "ansible-playbook -i inventory/k3s_homelab/hosts.ini playbooks/setup-k3s.yml"
+
+  sync-infra:
+    desc: setup infra on k3s
+    dir: helmfile.d
+    cmds:
+      - "helmfile -f 00-infrastructure.yaml sync"
+  
+  destroy-infra:
+    desc: setup infra on k3s
+    dir: helmfile.d
+    cmds:
+      - "helmfile -f 00-infrastructure.yaml destroy"
