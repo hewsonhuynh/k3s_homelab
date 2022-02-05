@@ -48,8 +48,9 @@ releases:
     values:
     - values/cert-manager.yaml
 
-  # - name: external-dns
-  #   namespace: external-dns
-  #   chart: external-dns/external-dns
-  #   values: 1.7.1
-  #   - values/external-dns.yaml
+  - name: external-dns
+    namespace: external-dns
+    chart: external-dns/external-dns
+    version: 1.7.1
+    values:
+    - values/external-dns.yaml
