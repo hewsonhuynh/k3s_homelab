@@ -1,0 +1,20 @@
+repositories:
+- name: argo
+  url: https://argoproj.github.io/argo-helm
+
+helmDefaults:
+  verify: false
+  wait: true
+  timeout: 600
+  atomic: true
+
+environments:
+  default:
+
+releases:
+  - name: argo-cd
+    namespace: argo-cd
+    chart: argo/argo-cd
+    version: 3.33.3
+    values:
+    - values/argo-cd.yaml
