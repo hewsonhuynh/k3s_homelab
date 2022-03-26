@@ -58,3 +58,14 @@
   loop:
     - "6443"
     - "443"
+
+- name: Update apt cache and make sure Longhorn Prerequisites are installed
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  loop:
+    - bash
+    - curl
+    - util-linux
+    - grep
+    - open-iscsi
