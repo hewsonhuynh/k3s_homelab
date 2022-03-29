@@ -1,0 +1,18 @@
+server:
+  extraArgs:
+    - --insecure
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/target: cname.hewson.io
+    ingressClassName: nginx
+    pathType: Prefix
+    hosts:
+      - argocd.hewson.io
+    paths:
+      - /
+    tls:
+      - secretName: argocd.hewson-tls
+        hosts:
+          - argocd.hewson.io
